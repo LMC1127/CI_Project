@@ -13,8 +13,8 @@
 ### 1. 子任務資訊
 
 - **目標：** 完成 Git 本機與 GitHub Remote 設定，透過 Feature Branch、Commit、Push、PR、Merge 練習開發流程並交付可核對的 URL 與 SHA。
-- **計畫審核：** 使用者已批准 A01 及一次性 main 基底 Commit；本次僅授權執行 A01，A02–A06 不推進。
-- **執行狀態：** A01 執行中
+- **計畫審核：** A01 與基底例外已批准；使用者先前授權 A02，本次「繼續」授權接續 A03；A04–A06 另行批准。
+- **執行狀態：** A01、A02 完成；A03 執行中。
 - **來源：** 上述 Notion 待辦的子任務 A；Global AGENTS.md v0.2.4；根目錄 Architecture.md v0.2；本機 templates/ 標準檔名範本。
 - **執行方式：** 本 Session 依序執行，一次一個 Step。
 - **查詢現況：** 本機尚無 Git Repository、Project AGENTS.md 或先前任務紀錄；現有 Architecture.md、README.md、templates/ 均為既有內容，不得當作本次新增成果。Git 已安裝且提交身分已設定；未安裝 gh，不擅自安裝。遠端 `git ls-remote --symref https://github.com/LMC1127/CI_Project.git HEAD 'refs/heads/*'` 成功且無輸出，查詢時未發現 HEAD 或分支；A01 前重查。
@@ -26,8 +26,8 @@
 
 | Step | 工作項目 | 等級 | 完成 |
 |---|---|---|---|
-| A01 | Git 初始化、origin、共同基底與 Feature Branch | L2（基底例外已批准） | [ ] |
-| A02 | README 與 .gitignore | L1 | [ ] |
+| A01 | Git 初始化、origin、共同基底與 Feature Branch | L2（基底例外已批准） | [x] |
+| A02 | README 與 .gitignore | L1 | [x] |
 | A03 | 檔案範圍審查與 Feature Commit | L1 | [ ] |
 | A04 | Push 與遠端 SHA 核對 | L2（另行批准） | [ ] |
 | A05 | 建立 PR 與 Diff 核對 | L2（另行批准） | [ ] |
@@ -41,32 +41,32 @@
 - **允許修改：** 本機 .git/；選擇性暫存既有 Architecture.md、README.md、templates/ 的 Markdown 檔及已審核的本待辦協作紀錄以建立基底 Commit；更新本待辦紀錄。不得修改既有架構與範本內容，不納入 .DS_Store。若遠端已有分支／Commit，停止重新比對，不覆蓋遠端、不建立獨立且無關的歷史。
 - **完成條件：** Validation A01 PASS、Git Scope PASS，且基底例外獲批准。
 - **Git Baseline：** 初始化前無 .git；既有 12 份 Markdown 檔與 .DS_Store 清單／雜湊已記錄於本機暫存 baseline；未有 staged／unstaged／untracked 分類。遠端重查 exit 0 且無 HEAD／分支。
-- **修改摘要：** 尚未執行
-- **Git Scope：** NOT_RUN
-- **Validation：** NOT_RUN
-- **異常／待批准：** A01 及一次性 main 基底 Commit 已獲明確批准；本步不 Push，不進入 A02。
+- **修改摘要：** 初始化本機 Git、設定指定 origin；只選擇性提交 12 份 Markdown 作為 main 基底，SHA `7e0b0f7045c9a891e13bf502d09c7453272b1cfb`；建立並切換 feat/git-dev-workflow。既有架構、README 與範本內容未變；未 Push。
+- **Git Scope：** PASS；基底追蹤檔精確符合 12 檔清單；完成紀錄保留為本待辦三檔 unstaged 更新；.DS_Store 保留 untracked，不納入交付。
+- **Validation：** PASS（詳細證據見 Validation A01；修復 0/3）
+- **異常／待批准：** A01 批准與驗證已完成；依本次授權邊界停止，不進入 A02。
 
 #### A02｜README 與 .gitignore
 
 - **目標：** README 說明本階段 Git 工作流程、文件位置與尚未實作範圍；.gitignore 排除本機敏感檔及常見 Python／測試快取，不忽略應交付原始碼或 .env.example。
 - **允許修改：** README.md、.gitignore、上述本待辦協作紀錄；不得宣稱 FastAPI／Docker 已可執行。規則涵蓋 .DS_Store、.env／本機環境檔（保留 .env.example）、.venv/、__pycache__/、*.pyc、.pytest_cache/、.ruff_cache/、.coverage、htmlcov/ 與 *.log。
 - **完成條件：** Validation A02 PASS、Git Scope PASS。
-- **Git Baseline：** 尚未記錄
-- **修改摘要：** 尚未執行
-- **Git Scope：** NOT_RUN
-- **Validation：** NOT_RUN
-- **異常／待批准：** 等待整體計畫批准。
+- **Git Baseline：** feat/git-dev-workflow，HEAD 7e0b0f7；既有 unstaged 為 A01 的 workflow.md、Validation.md、handoff.md，無 staged；三個 .DS_Store 原為 untracked。README 與 .gitignore 尚無本次修改。
+- **修改摘要：** README 更新實際階段、Repository、Git 開發與審查流程、累積文件位置；新增 .gitignore 排除本機環境檔及快取，保留 .env.example 可追蹤。
+- **Git Scope：** PASS；本次僅 README.md、.gitignore 與本待辦三份紀錄；既有架構／範本未變，無暫存或 Commit。
+- **Validation：** PASS；12 個排除路徑、6 個保留路徑與 whitespace 檢查通過；修復 0/3。
+- **異常／待批准：** 本步已獲授權並完成；下一步 A03 尚未執行。
 
 #### A03｜檔案範圍審查與 Feature Commit
 
 - **目標：** 僅提交 A02 與本待辦紀錄，確認 Feature Commit SHA 與相對 main 的實際差異。
 - **允許修改：** 選擇性 git add README.md、.gitignore 及本待辦紀錄；git commit；更新本待辦紀錄。不得 git add .，不得混入既有無關內容、機密或 ignored 檔。紀錄不強求包含其自身最終 SHA：Commit 後的 SHA／驗證與 handoff 更新可保留本機，下一次有意義 Commit 再納入，須明確列出未提交紀錄，避免反覆補 Commit。
 - **完成條件：** Validation A03 PASS、Git Scope PASS，記錄 base SHA、Feature SHA 與 Diff 摘要。
-- **Git Baseline：** 尚未記錄
+- **Git Baseline：** feat/git-dev-workflow，HEAD／main 7e0b0f7；既有 README 與三份累積紀錄 unstaged、.gitignore untracked，無 staged；本次不將 A01／A02 既有修改視為 A03 新實作。
 - **修改摘要：** 尚未執行
 - **Git Scope：** NOT_RUN
 - **Validation：** NOT_RUN
-- **異常／待批准：** 等待整體計畫批准；本步完成後展示待 Push 的分支／SHA／Diff，另請批准。
+- **異常／待批准：** 使用者已授權 A03；Commit 完成後停在 A04 Push 前。
 
 #### A04｜Push 與遠端 SHA 核對
 
@@ -103,8 +103,8 @@
 
 ### 4. 子任務完成摘要
 
-- **完成 Step：** 0/6
+- **完成 Step：** 2/6
 - **整體驗收：** NOT_RUN
-- **主要成果：** 子任務 A 計畫與驗證規格已準備；功能與 Git 流程尚未執行。
+- **主要成果：** A01 Git 基底完成；A02 README 與 .gitignore 驗證通過，尚未 Commit；其餘 4 Step 未執行。
 - **未解決問題：** 遠端寫入權限與 PR 操作登入尚未驗證；Architecture.md 檔頭仍為 Draft，內容不自行修改。
-- **下一步：** 使用者審核此計畫及 main 基底 Commit 例外；批准後從 A01 開始，不進入子任務 B。
+- **下一步：** A03 檔案範圍審查與 Feature Commit；本次停在 A02。
