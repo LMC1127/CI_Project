@@ -14,8 +14,8 @@
 
 | Step | 驗證項目 | 狀態 |
 |---|---|---|
-| A01 | origin、基底 Commit、Feature Branch 與共同祖先 | NOT_RUN |
-| A02 | README 內容、忽略規則與交付檔可追蹤性 | NOT_RUN |
+| A01 | origin、基底 Commit、Feature Branch 與共同祖先 | PASS |
+| A02 | README 內容、忽略規則與交付檔可追蹤性 | PASS |
 | A03 | 暫存範圍、Feature Commit SHA 與 Diff | NOT_RUN |
 | A04 | main 與 Feature 遠端 SHA | NOT_RUN |
 | A05 | PR URL、base/head 與實際 Diff | NOT_RUN |
@@ -34,9 +34,9 @@
 
 **執行結果｜執行後填寫**
 
-- **實際：** 執行中；Commit 前額外檢查 `git diff --cached --check` 回傳 exit 2（FAIL），僅指出 Architecture.md 七處既有 Markdown 雙空格換行。雜湊確認架構原檔未變，非本次新增瑕疵；保留原檔，分別驗證架構原檔一致性及其餘檔案 whitespace，不修改或放寬功能驗收。此為檢查診斷，無程式修復，修復次數仍 0/3。
-- **證據：** 無
-- **狀態：** NOT_RUN
+- **實際：** 2026-11-05 21:23:26 CST (UTC+08:00) 完成 A01，所有預期條件通過。保留 Commit 前診斷紀錄：Commit 前額外檢查 `git diff --cached --check` 回傳 exit 2（FAIL），僅指出 Architecture.md 七處既有 Markdown 雙空格換行。雜湊確認架構原檔未變，非本次新增瑕疵；保留原檔，分別驗證架構原檔一致性及其餘檔案 whitespace，不修改或放寬功能驗收。此為檢查診斷，無程式修復，修復次數仍 0/3。
+- **證據：** `git rev-parse --show-toplevel` = `/Users/liuzuoqi/Desktop/CI_Project`；origin = 指定 HTTPS URL；目前分支 `feat/git-dev-workflow`；`git rev-parse main`、HEAD、merge-base 均為 `7e0b0f7045c9a891e13bf502d09c7453272b1cfb`；`git rev-list --count main` = 1；`git ls-tree` 精確為 12 份批准的 Markdown；既有 Architecture.md、README.md、templates/ 雜湊一致；其餘檔案 whitespace 檢查 PASS。Commit 後 tracked diff 原為空；僅完成紀錄三檔保留 unstaged，.DS_Store untracked。
+- **狀態：** PASS
 - **修復次數：** 0/3
 - **修復摘要：** 無
 
@@ -49,9 +49,9 @@
 
 **執行結果｜執行後填寫**
 
-- **實際：** 尚未執行
-- **證據：** 無
-- **狀態：** NOT_RUN
+- **實際：** 2026-11-05 21:29:28 CST (UTC+08:00) PASS；README 已依現況更新，未宣稱 API／Docker 可執行；.gitignore 行為符合規格。
+- **證據：** `git check-ignore --no-index --stdin` 對 12 個路徑回傳 exit 0 且逐項匹配（含規格 10 項及 Workflows/.DS_Store、templates/.DS_Store）；對 6 個交付路徑回傳 exit 1、無輸出，皆可追蹤。未建立測試探針或機密檔。`git diff --check` exit 0；README Diff 與 .gitignore 全文已檢查，檔案雜湊／路徑比對確認變更符合 A02 scope。
+- **狀態：** PASS
 - **修復次數：** 0/3
 - **修復摘要：** 無
 
@@ -127,7 +127,7 @@
 - **實際：** 尚未執行
 - **證據：** 無
 - **狀態：** NOT_RUN
-- **未解決問題：** 整體計畫與基底 Commit 例外待批准；遠端寫入與 PR 登入尚未驗證。
+- **未解決問題：** A01、A02 已通過，A03–A06 未執行。遠端寫入與 PR 登入尚未驗證，整體子任務仍 NOT_RUN。
 
 ### 4. 規劃查詢備註（不是 Step 執行證據）
 
